@@ -1,0 +1,152 @@
+:root {
+  --main-dark: #a72f1d;
+  --main-light: #ffe1e1;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Lexend Zetta", sans-serif;
+  font-optical-sizing: auto;
+}
+
+code {
+  font-family: "Lexend Zetta", sans-serif;
+  font-optical-sizing: auto;
+}
+
+input::placeholder,
+textarea::placeholder {
+  font-family: "Lexend Zetta", sans-serif;
+  color: #aaa;
+}
+
+input:focus,
+input:focus {
+  outline: none;
+}
+
+p {
+  padding: 0.5em;
+}
+
+a,
+nav button {
+  text-decoration: none;
+  background-color: transparent;
+  border: none;
+  color: black;
+  transform: 0.4s;
+  font-size: 1em;
+  cursor: pointer;
+  font-family: "Lexend Zetta", sans-serif;
+}
+
+a:hover,
+nav button:hover {
+  color: #bbb;
+}
+
+form {
+  max-width: 50%;
+  margin: 0 auto;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+
+label span {
+  margin-bottom: 0.3em;
+  font-weight: bold;
+  text-align: left;
+}
+
+input,
+textarea {
+  font-size: 1em;
+  font-family: "Lexend Zetta", sans-serif;
+  box-sizing: border-box;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  padding: 0.8em 0;
+  background-color: transparent;
+  margin-bottom: 1em;
+}
+
+button {
+  font-family: "Lexend Zetta", sans-serif;
+  cursor: pointer;
+  width: fit-content;
+  font-weight: bold;
+  background-color: var(--main-light);
+  margin: 1em;
+  padding: 0.5em;
+  border: 1px solid var(--main-dark);
+  border-radius: 10px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+button[disabled] {
+  color: #aaa;
+  border: 1px solid var(--main-light);
+}
+
+
+span {
+  font-weight: bold;
+}
+
+.danger {
+  background-color: var(--main-dark);
+  color: var(--main-light);
+  text-align: center;
+  width:fit-content;
+  height: 100%;
+  padding: 1em;
+}
+
+.container .error {
+  color: var(--main-dark);
+  font-weight: border;
+  background-color: var(--main-dark);
+  border: 1px solid var(--main-dark);
+  color: var(--main-light);
+  border-radius: 5px;
+  padding: 5px;
+  width: fit-content;
+  font-weight: bolder;
+}
+
+.container .success {
+  color: var(--main-dark);
+  font-weight: border;
+  background-color: var(--main-light);
+  border: 1px solid var(--main-light);
+  border-radius: 5px;
+  padding: 5px;
+  width: fit-content;
+  font-weight: bolder;
+}
+
+@media (max-width: 1000px)  {
+  form {
+    max-width: 80%;
+  }
+
+  input,
+  textarea {
+    font-size: 0.8em;
+  }
+
+  button {
+    font-size: 0.8em;
+    margin: 0.2em;
+    margin-bottom: 0.5em;
+    padding: 0.3em;
+  }
+}

@@ -1,0 +1,38 @@
+.sidebar {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  border: 10px groove var(--main-light);
+}
+
+.button {
+  font-family: "Lexend Zetta", sans-serif;
+  text-align: center;
+  cursor: pointer;
+  width: max-content;
+  font-weight: bold;
+  background-color: var(--main-light);
+  margin: 1em;
+  padding: 0.5em;
+  border: 1px solid var(--main-dark);
+  border-radius: 10px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+
+
+@media (max-width: 1000px) {
+  .sidebar {
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    align-items: center;
+    width: fit-content;
+    border: 10px groove var(--main-light);
+  }
+}
+
+

@@ -1,0 +1,186 @@
+.admin {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 85vh;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px -2px 25px 25px;
+  background-color: lightgray;
+  border: 10px groove var(--main-light);
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.searchForm {
+  max-width: 100%;
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  margin: 0;
+  margin-left: 1em;
+  margin-bottom: 2em;
+}
+
+.searchForm input {
+  margin-right: 1em;
+  width: 80%;
+  background-color: antiquewhite;
+}
+
+.button {
+  font-family: "Lexend Zetta", sans-serif;
+  cursor: pointer;
+  width: fit-content;
+  font-weight: bold;
+  text-align: center;
+  background-color: var(--main-light);
+  margin: 1em;
+  padding: 0.5em;
+  border: 1px solid var(--main-dark);
+  border-radius: 10px;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px,
+    rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+
+.table {
+  display: flex;
+  flex-direction: row;
+  height: fit-content;
+  width: 95%;
+  justify-content: space-between;
+  align-items: center;
+  border: 1px solid var(--main-light);
+  font-size: 1em;
+}
+
+.item {
+  width: 33%;
+  margin-left: 0.5em;
+}
+
+.userData {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 96%;
+  padding: 1em;
+  
+  border-bottom: 2px solid var(--main-light);
+}
+
+.auth {
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+  width: 100%;
+  margin-left: 1em;
+}
+
+.userAuth {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.1em;
+  margin-top: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: left;
+}
+
+.userAuth .item {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-left: 0;
+  margin-bottom: 1em;
+}
+
+.handleAuthForm {
+  max-width: 100%;
+  justify-content: left;
+  margin: 0;
+  margin-top: 1em;
+}
+
+.handleAuthForm button {
+  margin: 0;
+}
+
+.labelAuth{
+  background-color: var(--main-light);
+  width: fit-content;
+  padding: 1em;
+}
+
+
+.radio {
+  display: flex;
+  flex-direction: row;
+  justify-content: left;
+  align-items: center;
+  text-align: center;
+  margin-top: 1em;
+}
+
+.radio input {
+  font-size: 1em;
+  margin-bottom: 0;
+}
+
+.profilePictureAvatar {
+  width: 12em;
+  height: 12em;
+  margin-right: 5em;
+  margin-bottom: 1em;
+}
+
+.avatar {
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border-width: 5px;
+  border-color: var(--main-dark);
+  border-style: outset;
+  object-fit: fill;
+}
+
+@media (max-width: 1000px) {
+  .admin {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .sidebar {
+    border: none;
+    border-bottom: 10px groove var(--main-light);
+    display: flex;
+    flex-direction: row;
+    height: fit-content;
+    margin: 0;
+    margin-top: 1em;
+  }
+
+  .sidebar button {
+    margin: 0.3 em;
+    padding: 0.5em;
+  }
+
+  .table{
+    display: flex;
+    flex-direction: column;
+    margin-top: 1em;
+  }
+
+  .userData{
+    display: flex;
+    flex-direction: column;
+  }
+
+}
