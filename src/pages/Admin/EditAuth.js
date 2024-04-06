@@ -33,26 +33,6 @@ const EditAuth = () => {
         navigate("/system/homesystem");
       }
     }
-    async function loadData() {
-      if (auth) {
-        try {
-          await setUid(auth.uid);
-          await setName(auth.name);
-          await setEmail(auth.email);
-          await setAuthUser(auth.authUser);
-
-          if (auth.profilePicture) {
-            await setPhotoUrl(auth.profilePicture);
-          } 
-        } catch (error) {}
-      }
-    }
-
-    try {
-      loadData();
-    } catch (error) {
-      console.log(error);
-    }
 
     return () => setCancelled(true);
   }, [
@@ -126,23 +106,37 @@ const EditAuth = () => {
       <div className={styles.main}>
         <div className={styles.auth}>
           <div className={styles.userData}>
-            <div className={styles.profilePictureAvatar}>
-              {!photoUrl ? (
-              <img src="https://firebasestorage.googleapis.com/v0/b/vanessaalbuquerquevisagismo.appspot.com/o/images%2Flogo.png?alt=media&token=aa8651c0-fb6b-442e-a218-366ba5f5bb21" alt="Imagem" className={styles.avatar} />
-              ):
-              (            <img src={photoUrl} alt="Imagem" className={styles.avatar} />)}
-              </div>
-            <div className={styles.userAuth}>
-              <span className={styles.item}>
-                <b>Usuário:</b> {name}
-              </span>
-              <span className={styles.item}>
-                <b>E-mail:</b> {email}
-              </span>
-              <span className={styles.item}>
-                <b>Autorização:</b> {authUser}
-              </span>
-            </div>
+            {auth && (
+              <>
+               
+                <div className={styles.profilePictureAvatar}>
+                  {!photoUrl ? (
+                    <img
+                      src="https://firebasestorage.googleapis.com/v0/b/vmavisagismo.appspot.com/o/logobremoved.png?alt=media&token=e259ce3f-06bd-4e9a-9429-3e1a85a3eb99"
+                      alt="Imagem"
+                      className={styles.avatar}
+                    />
+                  ) : (
+                    <img
+                      src={photoUrl}
+                      alt="Imagem"
+                      className={styles.avatar}
+                    />
+                  )}
+                </div>
+                <div className={styles.userAuth}>
+                  <span className={styles.item}>
+                    <b>Usuário:</b> {auth.name}
+                  </span>
+                  <span className={styles.item}>
+                    <b>E-mail:</b> {auth.email}
+                  </span>
+                  <span className={styles.item}>
+                    <b>Autorização:</b> {auth.authUser}
+                  </span>
+                </div>
+              </>
+            )}
           </div>
 
           <button onClick={tooggleFunctionAuthSystem}>

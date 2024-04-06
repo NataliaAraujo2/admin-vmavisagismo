@@ -6,6 +6,10 @@ import { onAuthStateChanged } from "firebase/auth";
 import { AuthProvider } from "./context/AuthContext";
 import Admin from './pages/Admin/Admin'
 import Login from './pages/Login/Login'
+import AuthUsers from './pages/Admin/AuthUsers'
+import EditAuth from './pages/Admin/EditAuth'
+import UserData from './pages/Admin/UserData'
+import Users from './pages/Admin/Users'
 import Navbar from "./components/Navbar/Navbar";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -37,6 +41,11 @@ function App() {
               path="/"
               element={<Login />}
             />
+
+            <Route path="/admin/authusers" element={<AuthUsers/>} />
+            <Route path="/admin/editauth/:id" element={<EditAuth/>} />
+            <Route path="/admin/userdata/:id" element={<UserData/>} />
+            <Route path="/admin/users" element={<Users/>} />
           </Routes>
         </div>
       </BrowserRouter>
