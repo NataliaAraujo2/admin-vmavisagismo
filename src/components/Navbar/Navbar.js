@@ -25,7 +25,7 @@ const Navbar = () => {
         "Quarta",
         "Quinta",
         "Sexta",
-        "ábado",
+        "Sábado",
       ];
 
       const monName = [
