@@ -529,8 +529,8 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
                 <div className={styles.grid}>
                   {firstImages &&
                     firstImages.map((data) => (
-                      <div className={styles.imagesModule}>
-                        <div key={data.id} className={styles.imagesModuleItem}>
+                      <div className={styles.imagesModule} key={data.id}>
+                        <div  className={styles.imagesModuleItem}>
                           {data.typeChoiced === "facefront" && (
                             <>
                               <span>Rosto - Frente</span>
