@@ -8,11 +8,10 @@ import { useAuthValue } from "../../context/AuthContext";
 import { useQueries } from "../../hooks/useQueries";
 
 const EditAuth = () => {
-  const [uid, setUid] = useState("");
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
+  const [uid,] = useState("");
+ 
   const [authUser, setAuthUser] = useState("");
-  const [photoUrl, setPhotoUrl] = useState("");
+  const [photoUrl] = useState("");
   const [cancelled, setCancelled] = useState(false);
   const [formError, setFormError] = useState("");
   const [success, setSuccess] = useState(false);
