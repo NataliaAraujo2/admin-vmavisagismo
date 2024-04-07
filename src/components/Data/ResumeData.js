@@ -4,26 +4,49 @@ import { useFetchDocument } from "../../hooks/useFetchDocument";
 import styles from "./Data.module.css";
 import { useQueries } from "../../hooks/useQueries";
 import { useFetchDocuments } from "../../hooks/useFetchDocuments";
+import {
+  collection,
+  getDocs,
+  query,
+  where,
+  snapshotEqual,
+} from "firebase/firestore";
+import { db } from "../../firebase/config";
 
 const ResumeData = ({ isOpen, setModalOpen }) => {
   //const render
   const [cancelled, setCancelled] = useState("");
   const [loading, setLoading] = useState(false);
   const [tooggleInitialForm, setTooggleInitialForm] = useState(false);
+  const [conclusions, setConclusions] = useState();
+  //const auth
+  const [uid, setUid] = useState("");
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [photoUrl, setPhotoUrl] = useState(
+    "https://firebasestorage.googleapis.com/v0/b/vmavisagismo.appspot.com/o/logobremoved.png?alt=media&token=e259ce3f-06bd-4e9a-9429-3e1a85a3eb99"
+  );
   //const document
   const [uidDocument, setUidDocument] = useState("");
   const [nameDocument, setNameDocument] = useState("");
   const [emailDocument, setEmailDocument] = useState("");
-  const [photoUrlDocument, setPhotoUrlDocument] = useState("https://firebasestorage.googleapis.com/v0/b/vmavisagismo.appspot.com/o/logobremoved.png?alt=media&token=e259ce3f-06bd-4e9a-9429-3e1a85a3eb99");
+  const [photoUrlDocument, setPhotoUrlDocument] = useState(
+    "https://firebasestorage.googleapis.com/v0/b/vmavisagismo.appspot.com/o/logobremoved.png?alt=media&token=e259ce3f-06bd-4e9a-9429-3e1a85a3eb99"
+  );
   //const search
   const { id } = useParams();
   const { document: auth } = useFetchDocument("users", id);
-  const { documents: firstImages } = useFetchDocuments(
-    "firstImages",
-    uidDocument
-  );
 
+  useEffect(() => {
+    if (auth) {
+      console.log(auth.uid);
+      setUid(auth.uid);
+    }
 
+    return () => {};
+  }, [auth]);
+
+  const { documents: firstImages } = useFetchDocuments("firstImages", uid);
 
   const { filter: filterPersonalData, document: filteredPersonalData } =
     useQueries("personaldata");
@@ -49,30 +72,42 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
       if (cancelled) return;
 
       if (auth) {
-        await setUidDocument(auth.uid);
-        await setNameDocument(auth.name);
-        await setEmailDocument(auth.email);
-        if(auth.profilePicture){
-          await setPhotoUrlDocument(auth.profilePicture);
+        await setUid(auth.uid);
+        await setName(auth.name);
+        await setEmail(auth.email);
+        if (auth.profilePicture) {
+          await setPhotoUrl(auth.profilePicture);
         }
-      
       }
     }
 
     loadData();
 
     return () => setCancelled(true);
-  }, [cancelled, auth, loading, uidDocument]);
+  }, [cancelled, auth, loading, uid]);
 
-  const { documents: conclusionFirstForm } = useFetchDocuments("conclusion", uidDocument);
+  useEffect(() => {
+    async function loadConclusion() {
+      const q = query(collection(db, "conclusion"), where("uid", "==", uid));
+      const querySnapshot = await getDocs(q);
+      setConclusions(querySnapshot.docs.map((doc) => doc.data()));
+    }
 
-  console.log(conclusionFirstForm);
+    loadConclusion();
+
+    return () => {};
+  }, [uid]);
+
+
+  console.log(uid);
+  console.log(conclusions);
+  console.log(nameDocument);
 
   const handleClickInitialForm = async () => {
     await setLoading(true);
 
     const field = "uid";
-    const demand = uidDocument;
+    const demand = uid;
     await filterPersonalData(field, demand);
     await filterContactData(field, demand);
     await filterAboutMe(field, demand);
@@ -108,17 +143,14 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
     setTooggleInitialForm(false);
   };
 
-
-
   if (isOpen) {
     return (
-      <div className={styles.background}>
-      
+      <div className={styles.background} key={id}>
         {!tooggleInitialForm && (
           <>
             <button onClick={setModalOpen}>Fechar</button>
-            {conclusionFirstForm &&
-              conclusionFirstForm.map((data) => (
+            {conclusions &&
+              conclusions.map((data) => (
                 <div className={styles.buttonInitialForm} key={data.id}>
                   <div className={styles.formName}>{data.form}</div>
                   <div className={styles.conclusionDate}>
@@ -160,7 +192,6 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
                   alt="Imagem"
                   className={styles.avatar}
                 />
-               
               </div>
               <div className={styles.mainDataTopic}>
                 {filteredPersonalData && (
@@ -530,7 +561,7 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
                   {firstImages &&
                     firstImages.map((data) => (
                       <div className={styles.imagesModule} key={data.id}>
-                        <div  className={styles.imagesModuleItem}>
+                        <div className={styles.imagesModuleItem}>
                           {data.typeChoiced === "facefront" && (
                             <>
                               <span>Rosto - Frente</span>
@@ -560,15 +591,13 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
                         <div className={styles.imagesModuleItem}>
                           {data.typeChoiced === "nape" && (
                             <>
-                          
-                                <span>Nuca</span>
-                           
-                                <img
-                                  src={data.image}
-                                  className={styles.imagepreview}
-                                  alt={`imagem ${data.typeChoiced}`}
-                                />
-                            
+                              <span>Nuca</span>
+
+                              <img
+                                src={data.image}
+                                className={styles.imagepreview}
+                                alt={`imagem ${data.typeChoiced}`}
+                              />
                             </>
                           )}
                         </div>

@@ -69,9 +69,38 @@ export const useQueries = (docCollection) => {
     }
   };
 
+  const filterDocumentsConclusion = async (field, demand) => {
+    checkCancelBeforeDispatch({ type: "LOADING" });
+
+    try {
+      const q = query(
+        collection(db, docCollection),
+        where(field, "==", demand)
+      );
+
+      const querySnapshot = await getDocs(q);
+      setDocument(querySnapshot.docs.map((doc) => doc.data()));
+      
+      console.log(document);
+
+      checkCancelBeforeDispatch({
+        type: "FILTERED_DOC",
+        payload: querySnapshot,
+      });
+    } catch (error) {
+      checkCancelBeforeDispatch({
+        type: "ERROR",
+        payload: error.message,
+      });
+      return;
+    }
+  };
+
+  
+
   useEffect(() => {
     return () => setCancelled(true);
   }, []);
 
-  return { filter, document, idDocument, response };
+  return { filter, filterDocumentsConclusion, document, idDocument, response };
 };
