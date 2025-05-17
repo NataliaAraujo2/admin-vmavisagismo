@@ -3,13 +3,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useFetchDocument } from "../../hooks/useFetchDocument";
 import styles from "./Data.module.css";
 import { useQueries } from "../../hooks/useQueries";
-import { useFetchDocuments } from "../../hooks/useFetchDocuments";
+
 import {
   collection,
   getDocs,
   query,
   where,
-  snapshotEqual,
 } from "firebase/firestore";
 import { db } from "../../firebase/config";
 
@@ -18,7 +17,8 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
   const [cancelled, setCancelled] = useState("");
   const [loading, setLoading] = useState(false);
   const [tooggleInitialForm, setTooggleInitialForm] = useState(false);
-  const [conclusions, setConclusions] = useState();
+  const [conclusions, setConclusions] = useState("");
+  const [firstImages, setFirstImages] = useState("")
   //const auth
   const [uid, setUid] = useState("");
   const [name, setName] = useState("");
@@ -46,7 +46,7 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
     return () => {};
   }, [auth]);
 
-  const { documents: firstImages } = useFetchDocuments("firstImages", uid);
+ 
 
   const { filter: filterPersonalData, document: filteredPersonalData } =
     useQueries("personaldata");
@@ -94,6 +94,14 @@ const ResumeData = ({ isOpen, setModalOpen }) => {
     }
 
     loadConclusion();
+
+    async function loadImages() {
+      const q = query(collection(db, "firstImages"), where("uid", "==", uid));
+      const querySnapshot = await getDocs(q);
+      setFirstImages(querySnapshot.docs.map((doc) => doc.data()));
+    }
+
+    loadImages()
 
     return () => {};
   }, [uid]);
